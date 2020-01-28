@@ -1,6 +1,6 @@
 package maven;
 
-public class A {
+public class A  {
     void f() {
         System.out.println("A");
     }
