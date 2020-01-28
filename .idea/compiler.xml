@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="hw01-maven" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="12">
+    <bytecodeTargetLevel>
       <module name="edu-otus-java" target="12" />
+      <module name="homework-02" target="12" />
       <module name="hw01-maven" target="12" />
       <module name="Lesson1" target="12" />
     </bytecodeTargetLevel>
