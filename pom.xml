@@ -11,6 +11,7 @@
     <modules>
         <module>Lesson1</module>
         <module>hw01-maven</module>
+        <module>homework-02</module>
     </modules>
 
     <dependencyManagement>
