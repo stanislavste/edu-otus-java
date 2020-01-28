@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Lesson1/Lesson1.iml" filepath="$PROJECT_DIR$/Lesson1/Lesson1.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/edu-otus-java.iml" filepath="$PROJECT_DIR$/.idea/edu-otus-java.iml" />
-      <module fileurl="file://$PROJECT_DIR$/hw01-maven/hw01-maven.iml" filepath="$PROJECT_DIR$/hw01-maven/hw01-maven.iml" />
     </modules>
   </component>
 </project>
