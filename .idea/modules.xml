@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/edu-otus-java.iml" filepath="$PROJECT_DIR$/.idea/edu-otus-java.iml" />
       <module fileurl="file://$PROJECT_DIR$/homework-02/homework-02.iml" filepath="$PROJECT_DIR$/homework-02/homework-02.iml" />
       <module fileurl="file://$PROJECT_DIR$/hw01-maven/hw01-maven.iml" filepath="$PROJECT_DIR$/hw01-maven/hw01-maven.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw-03-MyUnit/hw03MyUnit.iml" filepath="$PROJECT_DIR$/hw-03-MyUnit/hw03MyUnit.iml" />
     </modules>
   </component>
 </project>
