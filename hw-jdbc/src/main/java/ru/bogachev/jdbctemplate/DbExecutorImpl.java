@@ -1,5 +1,7 @@
 package ru.bogachev.jdbctemplate;
 
+import ru.bogachev.annotations.Id;
+
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.List;
@@ -23,18 +25,13 @@ public class DbExecutorImpl<T> implements DbExecutor<T> {
         Savepoint savePoint = this.connection.setSavepoint("savePointName");
         try (PreparedStatement pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             for (int idx = 0; idx < params.size(); idx++) {
-                System.out.println(params); //распарсить парамс вытащить вэлью для всех
                 Class clazz = params.get(idx).getClass();
                 Field[] fields = clazz.getDeclaredFields();
+                int index = 1;
                 for (Field field : fields) {
-                    if (field.getType().getSimpleName().equals("String")) {
-                        field.setAccessible(true);
-                        pst.setObject(idx + 1, field.get(params.get(idx)));
-                    }
-                    if (field.getType().getSimpleName().equals("int")) {
-                        field.setAccessible(true);
-                        pst.setObject(idx + 2, field.get(params.get(idx)));
-                    }
+                    field.setAccessible(true);
+                    if (!field.isAnnotationPresent(Id.class))
+                        pst.setObject(index++, field.get(params.get(idx)));
                 }
             }
             System.out.println(pst.toString());
