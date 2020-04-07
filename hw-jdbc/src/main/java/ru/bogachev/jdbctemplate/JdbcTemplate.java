@@ -14,7 +14,7 @@ import java.util.Collections;
 public class JdbcTemplate<T> implements JdbcOperations<T> {
     private final DataSource dataSource;
 
-    public JdbcTemplate(DataSource dataSource) {
+    JdbcTemplate(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 

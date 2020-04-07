@@ -16,7 +16,7 @@ public class DbExecutorImpl<T> implements DbExecutor<T> {
 
     private final Connection connection;
 
-    public DbExecutorImpl(Connection connection) {
+    DbExecutorImpl(Connection connection) {
         this.connection = connection;
     }
 
