@@ -15,7 +15,7 @@ public class JdbcTemplate<T> implements JdbcOperations<T> {
     }
 
     @Override
-    public void create(Object objectData) {
+    public void create(T objectData) {
         Class clazz = objectData.getClass();
         Field[] fields = clazz.getDeclaredFields();
         boolean haveId = false;
@@ -32,16 +32,12 @@ public class JdbcTemplate<T> implements JdbcOperations<T> {
         }
         try (Connection connection = dataSource.getConnection()) {
             DbExecutor<Object> executor = new DbExecutorImpl<>(connection);
-            for (Field field : fields
-            ) {
-                if (!field.equals(fieldWithId)) {
+                System.out.println(objectData);
                     long objectId = executor.insertRecord(
                             "insert into user(name, age) values (?, ?)",
-                            Collections.singletonList(objectData.getClass().getName()));
+                            Collections.singletonList(objectData));
                     connection.commit();
                     System.out.println("created:" + objectId);
-                }
-            }
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);

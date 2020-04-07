@@ -12,6 +12,6 @@ import java.util.function.Function;
  */
 public interface DbExecutor<T> {
 
-    long insertRecord(String sql, List<String> params) throws SQLException;
+    long insertRecord(String sql, List<T> params) throws SQLException, IllegalAccessException;
     Optional<T> selectRecord(String sql, long id, Function<ResultSet, T> rsHandler) throws SQLException;
 }
