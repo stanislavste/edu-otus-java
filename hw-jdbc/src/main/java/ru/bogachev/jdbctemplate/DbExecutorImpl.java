@@ -22,8 +22,12 @@ public class DbExecutorImpl<T> implements DbExecutor<T> {
         Savepoint savePoint = this.connection.setSavepoint("savePointName");
         try (PreparedStatement pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             for(int idx = 0; idx < params.size(); idx++) {
+                System.out.println(params);
                 pst.setString(idx + 1, params.get(idx));
+                pst.setInt(idx + 2, 2);
+                //pst.setInt(idx + 2, params.get(idx));
             }
+            System.out.println(pst.toString());
             pst.executeUpdate();
             try (ResultSet rs = pst.getGeneratedKeys()) {
                 rs.next();

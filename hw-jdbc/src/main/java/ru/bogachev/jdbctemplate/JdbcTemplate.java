@@ -36,7 +36,7 @@ public class JdbcTemplate<T> implements JdbcOperations<T> {
             ) {
                 if (!field.equals(fieldWithId)) {
                     long objectId = executor.insertRecord(
-                            "insert into user(" + field.getName() + ") values (?)",
+                            "insert into user(name, age) values (?, ?)",
                             Collections.singletonList(objectData.getClass().getName()));
                     connection.commit();
                     System.out.println("created:" + objectId);
