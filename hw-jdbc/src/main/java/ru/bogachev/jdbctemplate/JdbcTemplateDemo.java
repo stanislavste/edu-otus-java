@@ -20,7 +20,7 @@ public class JdbcTemplateDemo {
         demo.createTable(dataSource);
 
         JdbcOperations<User> jdbcUser = new JdbcTemplate<>(dataSource);
-        jdbcUser.create(new User(1,"User0", 1));
+        jdbcUser.create(new User(1,"User1", 20));
     }
 
     private void createTable(DataSource dataSource) throws SQLException {
