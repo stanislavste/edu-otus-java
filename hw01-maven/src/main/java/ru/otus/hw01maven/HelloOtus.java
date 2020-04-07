@@ -11,5 +11,6 @@ public class HelloOtus {
             }
         };
         if (charMatcher.matches('D')) System.out.println("Hello Otus");
+        System.out.println("фыв");
     }
 }

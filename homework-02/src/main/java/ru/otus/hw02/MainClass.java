@@ -19,14 +19,15 @@ public class MainClass {
         dIYArrayList.addAll(string2);
         System.out.println("my arrraylist size: " + dIYArrayList.size());
 
-        List<Integer> exampleCopy = new ArrayList<>();
+        //List<Integer> exampleCopy = new ArrayList<>();
+        List<? super Integer> exampleCopy = new DIYarrayList<>();
         for (int i = 0; i < dIYArrayList.size(); i++) {
-            exampleCopy.add(i);
+            exampleCopy.add(i, 0);
         }
 
         Collections.copy(exampleCopy, dIYArrayList);
         System.out.println("example copy size: " + exampleCopy.size());
-        for (Integer item : exampleCopy) {
+        for (Object item : exampleCopy) {
             System.out.print(item + " ");
         }
         System.out.println();
@@ -34,5 +35,6 @@ public class MainClass {
         for (Integer item : dIYArrayList) {
             System.out.print(item + " ");
         }
+        System.out.println("конец");
     }
 }

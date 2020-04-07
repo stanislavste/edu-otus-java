@@ -9,9 +9,14 @@ public class TestRunner {
 
     public static void run(Class<?> testClass) {
         Class<?> clazz = testClass.getClass();
-        Method[] methods = clazz.getMethods();
+        Method[] methods = clazz.getDeclaredMethods();
         for (Method method : methods) {
-            //if (!)
+            try {
+                System.out.println(method.getName());
+            } catch (Exception e){
+                System.out.println("Exception: " + clazz.getCanonicalName());
+            }
         }
+
     }
 }

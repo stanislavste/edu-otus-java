@@ -13,6 +13,7 @@
         <module>hw01-maven</module>
         <module>homework-02</module>
         <module>hw-03-MyUnit</module>
+        <module>hw-jdbc</module>
     </modules>
 
     <dependencyManagement>
@@ -51,7 +52,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>ru.otus.hw01maven.HelloOtus</mainClass>
+                            <mainClass>ru.otus.hw02.MainClass</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

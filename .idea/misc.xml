@@ -9,8 +9,12 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/Lesson1/pom.xml" />
+        <option value="$PROJECT_DIR$/homework-02/pom.xml" />
+        <option value="$PROJECT_DIR$/hw-03-MyUnit/pom.xml" />
+        <option value="$PROJECT_DIR$/hw01-maven/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_12" default="false" project-jdk-name="12" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>
