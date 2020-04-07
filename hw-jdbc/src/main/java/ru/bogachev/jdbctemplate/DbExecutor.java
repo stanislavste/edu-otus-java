@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * @author sergey
- * created on 03.02.19.
+ * @author Stanislav Bogachev
+ * created on 07.04.2020
  */
 public interface DbExecutor<T> {
 

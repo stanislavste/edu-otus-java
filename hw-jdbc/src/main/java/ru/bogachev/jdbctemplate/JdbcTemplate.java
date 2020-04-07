@@ -7,6 +7,10 @@ import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.util.Collections;
 
+/**
+ * @author Stanislav Bogachev
+ * created on 07.04.2020
+ */
 public class JdbcTemplate<T> implements JdbcOperations<T> {
     private final DataSource dataSource;
 

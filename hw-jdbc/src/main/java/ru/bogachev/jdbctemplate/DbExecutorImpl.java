@@ -9,8 +9,8 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * @author sergey
- * created on 03.02.19.
+ * @author Stanislav Bogachev
+ * created on 07.04.2020
  */
 public class DbExecutorImpl<T> implements DbExecutor<T> {
 
@@ -24,14 +24,14 @@ public class DbExecutorImpl<T> implements DbExecutor<T> {
     public long insertRecord(String sql, List<T> params) throws SQLException, IllegalAccessException {
         Savepoint savePoint = this.connection.setSavepoint("savePointName");
         try (PreparedStatement pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            for (int idx = 0; idx < params.size(); idx++) {
-                Class clazz = params.get(idx).getClass();
+            for (T param : params) {
+                Class clazz = param.getClass();
                 Field[] fields = clazz.getDeclaredFields();
                 int index = 1;
                 for (Field field : fields) {
                     field.setAccessible(true);
                     if (!field.isAnnotationPresent(Id.class))
-                        pst.setObject(index++, field.get(params.get(idx)));
+                        pst.setObject(index++, field.get(param));
                 }
             }
             System.out.println(pst.toString());

@@ -7,6 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * @author Stanislav Bogachev
+ * created on 07.04.2020
+ */
 public class JdbcTemplateDemo {
 
     public static void main(String[] args) throws SQLException {
