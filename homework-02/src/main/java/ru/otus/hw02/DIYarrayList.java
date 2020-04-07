@@ -2,11 +2,11 @@ package ru.otus.hw02;
 
 import java.util.*;
 
-//РЅРµРїРѕС‚РѕРєРѕР±РµР·РѕРїР°СЃРЅР°СЏ СЂРµР°Р»РёР·Р°С†РёСЏ
+//непотокобезопасная реализация
 public class DIYarrayList<T> implements List<T> {
 
-    Object[] elementData; //РјР°СЃСЃРёРІ РґР°РЅРЅС‹С… (РѕР±СЉРµРєС‚РѕРІ)
-    private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {}; //РїСѓСЃС‚РѕР№ РјР°СЃСЃРёРІ РґР»СЏ РґРµС„РѕР»С‚РЅРѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
+    Object[] elementData; //массив данных (объектов)
+    private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {}; //пустой массив для дефолтного конструктора
     private int size;
     private static final int DEFAULT_CAPACITY = 10;
     private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
@@ -16,19 +16,21 @@ public class DIYarrayList<T> implements List<T> {
         this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
     }
 
+
+
     @Override
     public boolean addAll(Collection<? extends T> collection) {
         Object[] objects = collection.toArray();
         int lengthOfAppendCollection = objects.length;
         if (lengthOfAppendCollection == 0) return false;
         //final int s;
-        Object[] elementData; //РјР°СЃСЃРёРІ РЅР°Р·РЅР°С‡РµРЅРёСЏ
+        Object[] elementData; //массив назначения
         if (lengthOfAppendCollection > (elementData = this.elementData).length - (size)) {
-                elementData = grow(size + lengthOfAppendCollection);//СѓРІРµР»РёС‡РёРІР°РµРј СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°
-            System.out.println("РµСЃР»Рё СЌР»РµРјРµРЅС‚РѕРІ Р±РѕР»СЊС€Рµ С‡РµРј РѕСЃС‚Р°С‚РѕРє РІРјРµСЃС‚РёРјРѕСЃС‚Рё РјР°СЃСЃРёРІР°");
+                elementData = grow(size + lengthOfAppendCollection);//увеличиваем размер массива
+            System.out.println("бред");
                 System.out.println(elementData == this.elementData);
         }
-        System.arraycopy(objects, 0, elementData, size, lengthOfAppendCollection); //РєР°Рє РїСЂРѕРёСЃС…РѕРґРёС‚
+        System.arraycopy(objects, 0, elementData, size, lengthOfAppendCollection); //как происходит
         //this.elementData = elementData;
         System.out.println(elementData == this.elementData);
         size = size + lengthOfAppendCollection;
@@ -51,6 +53,21 @@ public class DIYarrayList<T> implements List<T> {
         size = s + numNew;
         return true;
     }*/
+
+
+    private void add(T e, Object[] elementData, int s) {
+        if (s == elementData.length)
+            elementData = grow();
+        elementData[s] = e;
+        size = s + 1;
+    }
+
+    public boolean add(T e) {
+        //modCount++;
+        add(e, elementData, size);
+        return true;
+    }
+
 
     private Object[] grow(int minCapacity) {
         return elementData = Arrays.copyOf(elementData,
@@ -121,12 +138,6 @@ public class DIYarrayList<T> implements List<T> {
     public <T1> T1[] toArray(T1[] a) {
         throw new UnsupportedOperationException();
     }
-
-    @Override
-    public boolean add(T t) {
-        throw new UnsupportedOperationException();
-    }
-
     @Override
     public boolean remove(Object o) {
         throw new UnsupportedOperationException();
@@ -168,9 +179,16 @@ public class DIYarrayList<T> implements List<T> {
         return oldValue;
     }
 
-    @Override
     public void add(int index, T element) {
-        throw new UnsupportedOperationException();
+        final int s;
+        Object[] elementData;
+        if ((s = size) == (elementData = this.elementData).length)
+            elementData = grow();
+        System.arraycopy(elementData, index,
+                elementData, index + 1,
+                s - index);
+        elementData[index] = element;
+        size = s + 1;
     }
 
     @Override
