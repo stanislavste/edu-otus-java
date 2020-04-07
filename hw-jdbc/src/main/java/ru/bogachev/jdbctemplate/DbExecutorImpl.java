@@ -27,13 +27,13 @@ public class DbExecutorImpl<T> implements DbExecutor<T> {
                 Class clazz = params.get(idx).getClass();
                 Field[] fields = clazz.getDeclaredFields();
                 for (Field field : fields) {
-                    if (field.getName().equals("name")) {
+                    if (field.getType().getSimpleName().equals("String")) {
                         field.setAccessible(true);
-                        pst.setString(idx + 1, (String) field.get(params.get(idx)));
+                        pst.setObject(idx + 1, field.get(params.get(idx)));
                     }
-                    if (field.getName().equals("age")) {
+                    if (field.getType().getSimpleName().equals("int")) {
                         field.setAccessible(true);
-                        pst.setInt(idx + 2, field.getInt(params.get(idx)));
+                        pst.setObject(idx + 2, field.get(params.get(idx)));
                     }
                 }
             }
