@@ -24,24 +24,30 @@ public class JdbcTemplate<T> implements JdbcOperations<T> {
         Field[] fields = clazz.getDeclaredFields();
         boolean haveId = false;
         for (Field field : fields) {
-            if (field.isAnnotationPresent(Id.class)) {
-                haveId = true;
+            if (field.isAnnotationPresent(Id.class)) haveId = true;
+        }
+        if (!haveId) {
+            System.out.println("The class does not have a field with annotation @Id");
+            return;
+        }
+        for (Field field : fields) {
+            if (!field.isAnnotationPresent(Id.class)) {
+                field.setAccessible(true);
                 try (Connection connection = dataSource.getConnection()) {
                     DbExecutor<Object> executor = new DbExecutorImpl<>(connection);
                     System.out.println(objectData);
+                    System.out.println(clazz.getSimpleName());
                     long objectId = executor.insertRecord(
-                            "insert into user(name, age) values (?, ?)",
-                            Collections.singletonList(objectData));
+                            "insert into " + clazz.getSimpleName() + "(" + field.getName() + ") values (?)",
+                            Collections.singletonList(field.get(objectData)));
                     connection.commit();
-                    System.out.println("created:" + objectId);
+                    System.out.println("created field:" + objectId);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     throw new RuntimeException(ex);
                 }
-
             }
         }
-        if (!haveId) System.out.println("The class does not have a field with annotation @Id");
     }
 
     @Override

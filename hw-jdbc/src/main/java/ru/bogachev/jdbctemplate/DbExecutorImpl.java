@@ -1,8 +1,5 @@
 package ru.bogachev.jdbctemplate;
 
-import ru.bogachev.annotations.Id;
-
-import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.List;
 import java.util.Optional;
@@ -24,15 +21,8 @@ public class DbExecutorImpl<T> implements DbExecutor<T> {
     public long insertRecord(String sql, List<T> params) throws SQLException, IllegalAccessException {
         Savepoint savePoint = this.connection.setSavepoint("savePointName");
         try (PreparedStatement pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            for (T param : params) {
-                Class clazz = param.getClass();
-                Field[] fields = clazz.getDeclaredFields();
-                int index = 1;
-                for (Field field : fields) {
-                    field.setAccessible(true);
-                    if (!field.isAnnotationPresent(Id.class))
-                        pst.setObject(index++, field.get(param));
-                }
+            for(int idx = 0; idx < params.size(); idx++) {
+                pst.setObject(idx + 1, params.get(idx));
             }
             System.out.println(pst.toString());
             pst.executeUpdate();
@@ -44,9 +34,6 @@ public class DbExecutorImpl<T> implements DbExecutor<T> {
             this.connection.rollback(savePoint);
             System.out.println(ex.getMessage());
             throw ex;
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            throw e;
         }
     }
 
