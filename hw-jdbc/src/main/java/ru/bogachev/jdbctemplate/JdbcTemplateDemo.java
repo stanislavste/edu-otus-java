@@ -1,5 +1,6 @@
 package ru.bogachev.jdbctemplate;
 
+import ru.bogachev.dao.Account;
 import ru.bogachev.dao.User;
 
 import javax.sql.DataSource;
@@ -17,13 +18,16 @@ public class JdbcTemplateDemo {
         DataSource dataSource = new DataSourceH2();
         JdbcTemplateDemo demo = new JdbcTemplateDemo();
 
-        demo.createTable(dataSource);
+        demo.createTableWithUser(dataSource);
+        demo.createTableWithAccount(dataSource);
 
         JdbcOperations<User> jdbcUser = new JdbcTemplate<>(dataSource);
         jdbcUser.create(new User(1,"User1", 20));
+        JdbcOperations<Account> jdbcAccount = new JdbcTemplate<>(dataSource);
+        jdbcAccount.create(new Account(2, "Test", 1000));
     }
 
-    private void createTable(DataSource dataSource) throws SQLException {
+    private void createTableWithUser(DataSource dataSource) throws SQLException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement pst = connection.prepareStatement(
                      "create table user(id bigint(20) NOT NULL auto_increment, name varchar(255), age int(3))")) {
@@ -31,4 +35,18 @@ public class JdbcTemplateDemo {
         }
         System.out.println("table created");
     }
+   /* Создайте еще одну таблицу Account:
+            • no bigint(20) NOT NULL auto_increment
+            • type varchar(255)
+            • rest number
+    Создайте для этой таблицы класс Account и проверьте работу JdbcTemplate на этом классе.*/
+    private void createTableWithAccount(DataSource dataSource) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement pst = connection.prepareStatement(
+                     "create table account(no bigint(20) NOT NULL auto_increment, type varchar(255), rest number)")) {
+            pst.executeUpdate();
+        }
+        System.out.println("table created");
+    }
+
 }
