@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="hwjdbc" target="11" />
+      <module name="hwjdbc" target="12" />
     </bytecodeTargetLevel>
   </component>
 </project>
