@@ -12,6 +12,7 @@ import java.util.logging.Logger;
  * created on 07.04.2020
  */
 public class DataSourceH2 implements DataSource {
+    //commit in master
     private static final String URL = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1";
 
     @Override
